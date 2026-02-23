@@ -168,6 +168,25 @@
             background: white;
             box-shadow: 0 0 0 4px rgba(0, 137, 123, 0.1);
         }
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+        .toggle-password:hover {
+            color: #00897b;
+        }
         .form-options {
             display: flex;
             justify-content: space-between;
@@ -363,6 +382,9 @@
                 <div class="input-wrapper">
                     <i class="fas fa-lock"></i>
                     <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" onclick="togglePasswordVisibility()" title="Show password">
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
                 </div>
             </div>
 
@@ -409,6 +431,23 @@
             accountant: { password: 'acct123', role: 'accountant', name: 'Accountant', companies: ['all'] },
             staff: { password: 'staff123', role: 'staff', name: 'Staff Member', companies: ['dheekay','kdchavit','nuatthai','autocasa'] }
         };
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            const toggleBtn = document.querySelector('.toggle-password');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+                toggleBtn.title = 'Hide password';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+                toggleBtn.title = 'Show password';
+            }
+        }
 
         function quickLogin(company, username, password) {
             document.getElementById('company').value = company;
