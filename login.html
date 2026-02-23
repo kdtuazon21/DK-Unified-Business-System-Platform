@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Business Management System — Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b2838 40%, #0a2647 100%);
+            overflow: hidden;
+        }
+        /* Left Panel - Branding */
+        .login-branding {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .login-branding::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(0, 137, 123, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(243, 156, 18, 0.1) 0%, transparent 40%);
+            animation: float 15s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-20px, -30px); }
+        }
+        .brand-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 500px;
+        }
+        .brand-logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #00897b, #26a69a);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            box-shadow: 0 20px 60px rgba(0, 137, 123, 0.3);
+        }
+        .brand-logo i { font-size: 48px; color: white; }
+        .brand-content h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .brand-content p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .business-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+        .biz-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+            transition: all 0.3s;
+        }
+        .biz-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+        }
+        .biz-card .biz-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: white;
+        }
+        .biz-card:nth-child(1) .biz-icon { background: rgba(22, 160, 133, 0.3); color: #2ecc71; }
+        .biz-card:nth-child(2) .biz-icon { background: rgba(243, 156, 18, 0.3); color: #f39c12; }
+        .biz-card:nth-child(3) .biz-icon { background: rgba(255, 215, 0, 0.3); color: #FFD700; }
+        .biz-card:nth-child(4) .biz-icon { background: rgba(231, 76, 60, 0.3); color: #e74c3c; }
+        .biz-card h4 { font-size: 13px; font-weight: 600; color: white; margin-bottom: 4px; }
+        .biz-card span { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+        /* Right Panel - Login Form */
+        .login-form-panel {
+            width: 480px;
+            min-height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            box-shadow: -20px 0 60px rgba(0,0,0,0.2);
+        }
+        .login-form-panel h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+        .login-form-panel .subtitle {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 36px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 16px;
+        }
+        .input-wrapper input, .input-wrapper select {
+            width: 100%;
+            padding: 12px 14px 12px 44px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            outline: none;
+            background: #f8fafc;
+        }
+        .input-wrapper input:focus, .input-wrapper select:focus {
+            border-color: #00897b;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 137, 123, 0.1);
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #64748b;
+            cursor: pointer;
+        }
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #00897b;
+        }
+        .forgot-link {
+            font-size: 13px;
+            color: #00897b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .forgot-link:hover { text-decoration: underline; }
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #00897b, #00796b);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-login:hover {
+            background: linear-gradient(135deg, #00796b, #00695c);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(0, 137, 123, 0.3);
+        }
+        .btn-login:active { transform: translateY(0); }
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+        .login-divider::before, .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+        .demo-accounts {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .demo-accounts h4 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #166534;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .demo-account-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #dcfce7;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .demo-account-item:last-child { border-bottom: none; }
+        .demo-account-item:hover { padding-left: 8px; }
+        .demo-account-item .role {
+            font-size: 13px;
+            font-weight: 500;
+            color: #1a1a2e;
+        }
+        .demo-account-item .cred {
+            font-size: 11px;
+            color: #64748b;
+            font-family: monospace;
+        }
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        .error-message.show { display: flex; }
+
+        /* Icon color classes */
+        .icon-owner { color: #f39c12; margin-right: 6px; }
+        .icon-dheekay { color: #16a085; margin-right: 6px; }
+        .icon-nuatthai { color: #FFD700; margin-right: 6px; }
+        .icon-autocasa { color: #e74c3c; margin-right: 6px; }
+
+        @media (max-width: 1024px) {
+            .login-branding { display: none; }
+            .login-form-panel { width: 100%; max-width: 480px; margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-branding">
+        <div class="brand-content">
+            <div class="brand-logo">
+                <i class="fas fa-cubes"></i>
+            </div>
+            <h1>Unified Business<br>Management System</h1>
+            <p>One platform to manage all your businesses. Centralized control with brand-specific workflows for construction, wellness, and automotive operations.</p>
+            <div class="business-cards">
+                <div class="biz-card">
+                    <div class="biz-icon"><i class="fas fa-hard-hat"></i></div>
+                    <h4>Dheekay Builders OPC</h4>
+                    <span>Construction / Contracting</span>
+                </div>
+                <div class="biz-card">
+                    <div class="biz-icon"><i class="fas fa-building"></i></div>
+                    <h4>KDChavit Construction</h4>
+                    <span>Construction / Contracting</span>
+                </div>
+                <div class="biz-card">
+                    <div class="biz-icon"><i class="fas fa-spa"></i></div>
+                    <h4>Nuat Thai Massage</h4>
+                    <span>Wellness / Services</span>
+                </div>
+                <div class="biz-card">
+                    <div class="biz-icon"><i class="fas fa-car"></i></div>
+                    <h4>AutoCasa Auto Expert</h4>
+                    <span>Automotive Repair</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-form-panel">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to your unified business dashboard</p>
+
+        <div class="error-message" id="errorMsg">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorText">Invalid credentials. Please try again.</span>
+        </div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label>Company</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-building"></i>
+                    <select id="company" title="Select company" aria-label="Company selector" required>
+                        <option value="">Select company...</option>
+                        <option value="all">All Companies (Owner View)</option>
+                        <option value="dheekay">Dheekay Builders OPC</option>
+                        <option value="kdchavit">KDChavit Construction</option>
+                        <option value="nuatthai">Nuat Thai Foot & Body Massage</option>
+                        <option value="autocasa">AutoCasa Auto Expert</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Username</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Enter your username" required autocomplete="username">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+                </div>
+            </div>
+
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe"> Remember me
+                </label>
+                <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i>
+                Sign In
+            </button>
+        </form>
+
+        <div class="login-divider">Demo Accounts</div>
+
+        <div class="demo-accounts">
+            <h4>Quick Login</h4>
+            <div class="demo-account-item" onclick="quickLogin('all','owner','owner123')">
+                <span class="role"><i class="fas fa-crown icon-owner"></i> Owner (All Companies)</span>
+                <span class="cred">owner / owner123</span>
+            </div>
+            <div class="demo-account-item" onclick="quickLogin('dheekay','manager','manager123')">
+                <span class="role"><i class="fas fa-hard-hat icon-dheekay"></i> Dheekay Manager</span>
+                <span class="cred">manager / manager123</span>
+            </div>
+            <div class="demo-account-item" onclick="quickLogin('nuatthai','manager','manager123')">
+                <span class="role"><i class="fas fa-spa icon-nuatthai"></i> Nuat Thai Manager</span>
+                <span class="cred">manager / manager123</span>
+            </div>
+            <div class="demo-account-item" onclick="quickLogin('autocasa','manager','manager123')">
+                <span class="role"><i class="fas fa-car icon-autocasa"></i> AutoCasa Manager</span>
+                <span class="cred">manager / manager123</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const USERS = {
+            owner: { password: 'owner123', role: 'owner', name: 'Business Owner', companies: ['all'] },
+            manager: { password: 'manager123', role: 'manager', name: 'Branch Manager', companies: ['dheekay','kdchavit','nuatthai','autocasa'] },
+            accountant: { password: 'acct123', role: 'accountant', name: 'Accountant', companies: ['all'] },
+            staff: { password: 'staff123', role: 'staff', name: 'Staff Member', companies: ['dheekay','kdchavit','nuatthai','autocasa'] }
+        };
+
+        function quickLogin(company, username, password) {
+            document.getElementById('company').value = company;
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            document.getElementById('loginForm').requestSubmit();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const company = document.getElementById('company').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const errorText = document.getElementById('errorText');
+
+            const user = USERS[username];
+            if (!user || user.password !== password) {
+                errorText.textContent = 'Invalid username or password.';
+                errorMsg.classList.add('show');
+                return false;
+            }
+
+            if (user.role !== 'owner' && user.role !== 'accountant' && !user.companies.includes(company) && company !== 'all') {
+                // Staff/managers can access their assigned company
+            }
+
+            // Store session
+            const session = {
+                username,
+                role: user.role,
+                name: user.name,
+                company,
+                loginTime: new Date().toISOString(),
+                isLoggedIn: true
+            };
+            localStorage.setItem('ubms_session', JSON.stringify(session));
+            
+            // Redirect to dashboard
+            window.location.href = 'index.html';
+            return false;
+        }
+
+        // Check if already logged in
+        const session = JSON.parse(localStorage.getItem('ubms_session') || '{}');
+        if (session.isLoggedIn) {
+            window.location.href = 'index.html';
+        }
+
+        // Check for remembered credentials
+        const remembered = JSON.parse(localStorage.getItem('ubms_remember') || '{}');
+        if (remembered.username) {
+            document.getElementById('username').value = remembered.username;
+            document.getElementById('company').value = remembered.company || '';
+            document.getElementById('rememberMe').checked = true;
+        }
+    </script>
+</body>
+</html>
