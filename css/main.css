@@ -76,6 +76,7 @@ body {
     display: flex;
     min-height: 100vh;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
@@ -290,9 +291,10 @@ input, select, textarea { font-family: inherit; }
     flex: 1;
     margin-left: var(--sidebar-width);
     transition: var(--transition);
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 .sidebar.collapsed ~ .main-content { margin-left: var(--sidebar-collapsed); }
 
