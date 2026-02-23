@@ -144,13 +144,21 @@
         .input-wrapper {
             position: relative;
         }
-        .input-wrapper i {
+        .input-wrapper > i {
             position: absolute;
             left: 14px;
             top: 50%;
             transform: translateY(-50%);
             color: #94a3b8;
             font-size: 16px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .toggle-password i {
+            position: static;
+            transform: none;
+            color: inherit;
+            font-size: inherit;
         }
         .input-wrapper input, .input-wrapper select {
             width: 100%;
